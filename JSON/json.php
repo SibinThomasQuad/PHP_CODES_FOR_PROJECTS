@@ -1,3 +1,4 @@
+<?php
 class JSONUtils {
     public static function addKeyValue($jsonStr, $key, $value) {
         $jsonObj = json_decode($jsonStr, true);
@@ -25,3 +26,4 @@ class JSONUtils {
         return json_encode($array);
     }
 }
+?>
