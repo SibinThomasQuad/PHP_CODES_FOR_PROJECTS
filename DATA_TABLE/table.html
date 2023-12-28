@@ -1,0 +1,66 @@
+{% include 'common/layouts/header.html' %}
+<div class="panel panel-default">
+    <div class="panel-body">Tank Report</div>
+    <div class="panel-footer">
+
+        
+            <table id="tankTestTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tank Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Checked By</th>
+                        <th>Project Number</th>
+                        <th>Hull Number</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        
+
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#tankTestTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{% url 'tank_test_data' %}?project_no={{project_no}}",
+            "columns": [
+                {"data": "tank_name"},
+                {"data": "date"},
+                {"data": "status"},
+                {"data": "checked_by"},
+                {"data": "project_no"},
+                {"data": "hull_number"},
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<button class="btn btn-info btn-sm" onclick="viewTank(' + row.id + ')">View</button>';
+                    }
+                },
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<button class="btn btn-danger btn-sm" onclick="deleteTank(' + row.id + ')">Delete</button>';
+                    }
+                },
+            ]
+        });
+    });
+
+    // Dummy JavaScript functions
+    function viewTank(tankId) {
+        // Implement your view logic here
+        alert('View tank with ID: ' + tankId);
+    }
+
+    function deleteTank(tankId) {
+        // Implement your delete logic here
+        alert('Delete tank with ID: ' + tankId);
+    }
+</script>
+
+{% include 'common/layouts/footer.html' %}
